@@ -1,0 +1,192 @@
+﻿$(document).ready(function() {
+    //window.setTimeout("addTab()", 2000);
+    addTab();
+    run();
+});
+function addTab() {
+    //$('#item_detail')[0].getElementsByTagName("dl")[3].innerHTML="<dl class=\"booklist\" id=\"cdcontainer\" style=\"display: none;\"><dt>随书光盘:</dt><dd id=\"cd\"></dd></dl>"
+    var dl = $('#item_detail')[0].getElementsByTagName("dl")[3].id = "cxstar";
+    //document.getElementById("cxstar").appendChild('<dl class="booklist" id="cdcontainer" style="display: none;"><dt>随书光盘:</dt><dd id="cd"></dd></dl>');
+    $('<dl class="booklist" id="cdcontainer" style="display: none;"><dt>畅想之星:</dt><dd id="cd"></dd></dl>').appendTo('#cxstar');
+    //$('<tr id="cdcontainer" style="display: none;"><th>光盘数据库：</th><td id=cd></td></tr>').appendTo('#detailsTable');
+    //$('<tr id="cdcontainer" bgcolor="#EBF0F2" style="display: none;"><td class="opac_blue" align="right" nowrap="nowrap" valign="top" width="15%">光盘数据库：</td><td id=cd></td></tr>').appendTo('#detailinfo');
+}
+
+function run() {
+    var xtruid = 'www.bj.cxstar.cn/bookcd';
+    var website = 'www.bj.cxstar.cn/bookcd';
+    var pinst = '18c4c1a6004ae50bd3';
+
+    var htmlstr = document.getElementById('item_detail');
+    htmlstr = htmlstr.innerHTML.replace(/\t/g, '').replace(/ /g, '').replace(/"/g, '').replace(/\r/g, '').replace(/\n/g, '').toUpperCase();
+    htmlstr = htmlstr.replace(/\<\/DT>/g, '');
+    //alert(htmlstr);
+
+    //var regExp = /<DLCLASS=BOOKLIST><DT>题名\/责任者:<DD><AHREF=.*?>(.*?)<\/A>.*?\/(.*?)<\/DD><\/DL>/;
+    var regExp = /<DLCLASS=BOOKLIST><DT>题名\/责任者:<DD><AHREF=.*?>(.*?)<\/A>(.*?)<\/DD>/
+    regExp.exec(htmlstr);
+    var title = RegExp.$1;
+    var author = RegExp.$2;
+
+    if (author.indexOf('/') != -1)
+        author = author.substring(author.indexOf('/') + 1, author.length);
+
+    regExp = /<DLCLASS=BOOKLIST><DT>出版发行项:<DD>(.*?)<\/DD>/;
+    regExp.exec(htmlstr);
+    var publish = RegExp.$1;
+    var date;
+
+    var isbn;debugger;
+    if (htmlstr.indexOf("ISBN及定价") != -1) {
+        regExp = /<DT(.*?)>ISBN及定价:<DD>(.*?)<\/DD>/;
+        regExp.exec(htmlstr);
+        isbn = RegExp.$2;
+    }
+    else {
+        regExp = /<DT>ISBN:<DD>(.*?)<\/DD>/;
+        regExp.exec(htmlstr);
+        isbn = RegExp.$1;
+    }
+
+    if (isbn == publish) {
+        if (htmlstr.indexOf("ISBN及定价") != -1) {
+            regExp = /<DLID=CXSTARCLASS=BOOKLIST><DT>ISBN及定价:<DD>(.*?)<\/DD>|<DLCLASS=BOOKLISTID=CXSTAR><DT>ISBN及定价:<DD>(.*?)<\/DD>/;
+            regExp.exec(htmlstr);
+            isbn = RegExp.$1 === '' ? RegExp.$2 : RegExp.$1;
+        }
+        else {
+            regExp = /<DLID=CXSTARCLASS=BOOKLIST><DT>ISBN:<DD>(.*?)<\/DD>|<DLCLASS=BOOKLISTID=CXSTAR><DT>ISBN:<DD>(.*?)<\/DD>/;
+            regExp.exec(htmlstr);
+            isbn = RegExp.$1 === '' ? RegExp.$2 : RegExp.$1;
+        }
+    }
+
+    if (publish.indexOf(':') != -1) {
+        publish = publish.substring(publish.indexOf(':') + 1, publish.length);
+    }
+
+    if (publish.indexOf(',') != -1) {
+        date = publish.substring(publish.indexOf(',') + 1, publish.length);
+        publish = publish.substring(0, publish.indexOf(','));
+    }
+
+    
+
+    regExp = /<DL[^<>]*?CLASS=BOOKLIST[^<>]*?><DT>载体形态项:<DD>(.*?)<\/DD>/;
+    regExp.exec(htmlstr);
+    var cd = RegExp.$1;
+
+    if (cd == isbn) {
+        regExp = /<DL[^<>]*?CLASS=BOOKLIST[^<>]*?><DT>载体形态项:<DD>(.*?)<\/DD>/;
+        regExp.exec(htmlstr);
+        cd = RegExp.$1;
+    }
+
+    //alert(title + author + publish + date + isbn);
+
+    var cd2 = isbn;
+    var isbn2 = "";
+    //alert(title+author+publish+date+isbn);
+
+    if (isbn.indexOf('/') != -1) {
+        isbn = isbn.substring(0, isbn.indexOf('/'));
+    }
+    if (isbn.indexOf('光盘') != -1) {
+        isbn = isbn.substring(0, isbn.indexOf('光盘'));
+    }
+    if (isbn.indexOf(':') != -1) {
+        isbn = isbn.substring(0, isbn.indexOf(':'));
+    }
+    if (isbn.indexOf('(') != -1) {
+        isbn = isbn.substring(0, isbn.indexOf('('));
+    }
+    if (isbn.indexOf('精装') != -1) {
+        isbn2 = isbn.substring(0, isbn.indexOf('精装'));
+        if (isbn2 != "")
+            isbn = isbn2;
+    }
+    if (isbn.indexOf('精装') != -1 && isbn2 == "") {
+        isbn = isbn.substring(isbn.indexOf('精装') + 2, isbn.length);
+    }
+    if (isbn.indexOf('CNY') != -1) {
+        isbn = isbn.substring(0, isbn.indexOf('CNY'));
+    }
+    if (isbn.indexOf('平装') != -1) {
+        isbn = isbn.substring(0, isbn.indexOf('平装'));
+    }
+
+    title = title.replace(/<\/?[^>]+>/gi, '');
+    publish = publish.replace(/<\/?[^>]+>/gi, '');
+    author = author.replace(/<\/?[^>]+>/gi, '');
+    date = date.replace(/[^\d\-]/g, '');
+    author = escape(author);
+    publish = escape(publish);
+    title = escape(title);
+
+    var cdflag = 0;
+    if ((cd.indexOf('光盘') != -1) || (cd.indexOf('CD') != -1) || (cd.indexOf('DISK') != -1) || (cd.indexOf('DVD') != -1) || (cd.indexOf('DISC') != -1) || (cd2.indexOf('光盘') != -1) || (cd2.indexOf('CD') != -1) || (cd2.indexOf('DISK') != -1) || (cd2.indexOf('DVD') != -1) || (cd2.indexOf('DISC') != -1)) {
+        cdflag = 1;
+    }
+
+    if (cdflag == '1') {
+        document.getElementById('cdcontainer').style.display = '';
+        document.getElementById('cd').innerHTML = '<a style=\'float: left;line-height: 25px;\' class=\'cxcd\' target=\'_blank\' href=\'http://' + xtruid + '/format/release/aspx/SysCDResult.aspx?isbn=' + isbn + '&website=' + website + '&type=i&localflag=0&decode=UTF8&author=' + author + '&title=' + title + '&publish=' + publish + '&date=' + date + '&pinst=' + pinst + '\'><img  style=\'float: left; padding-right: 5px;\' src=\'http://' + xtruid + '/format/Release/aspx/GPyx/img/disc.gif\'>随书光盘下载</a>';
+    }
+
+    if (isbn) {
+        var s = document.createElement('script');
+        s.src = 'http://' + xtruid + '/format/release/aspx/ServerMethodCaller.ashx?dll=extcom406.dll&m=CalOpacEbookDataface&srchType=i&word=' + isbn + '&dmcode=1987051001&charset=UTF-8&idcount=0&cdxsflag=0&pinst=' + pinst + '&listflag=0&rootappruid=' + pinst + '&imgwi=120&locf=0&tagsflag=0&auintroflag=2&centerurl=';
+        s.type = 'text/javascript';
+        document.body.appendChild(s);
+    }
+}
+
+function GetContents(cflag) {
+    var xtruid = 'www.bj.cxstar.cn/bookcd';
+    var website = 'www.bj.cxstar.cn/bookcd';
+    var pinst = '18c4c1a6004ae50bd3';
+    var htmlstr = document.documentElement.innerHTML.replace(/\t/g, '').replace(/\r/g, '').replace(/\n/g, '').toUpperCase();
+    regExp = /ISBN<\/SPAN><\/TD><TD>([\S\s]*?)<\/TD>/;
+    regExp.exec(htmlstr);
+    var isbn = RegExp.$1;
+
+    if (isbn.indexOf('#') != -1) {
+        isbn = isbn.substring(0, isbn.indexOf('#'));
+    } else if (isbn.indexOf('光盘') != -1) {
+        isbn = isbn.substring(0, isbn.indexOf('光盘'));
+    }
+    if (isbn) {
+        var s = document.createElement('script');
+        s.src = 'http://' + xtruid + '/format/release/aspx/ServerMethodCaller.ashx?dll=extcom406.dll&m=CalOpacEbookDataface&srchType=i&word=' + isbn + '&dmcode=1987051001&charset=UTF-8&idcount=0&cdxsflag=0&pinst=' + pinst + '&listflag=0&rootappruid=' + pinst + '&imgwi=120&locf=0&tagsflag=0&auintroflag=2&centerurl=&con=' + cflag;
+        s.type = 'text/javascript';
+        document.body.appendChild(s);
+    }
+}
+
+////返回前一页的
+function checkblock(id) {
+    if (id == 0)
+    { id = 'dirblock'; }
+    else if (id == 1)
+    { id = 'dirnone'; }
+    else if (id == 2)
+    { id = 'aublock'; }
+    else if (id == 3)
+    { id = 'aunone'; }
+    else if (id == 4)
+    { id = 'introblock'; }
+    else if (id == 5)
+    { id = 'intronone'; }
+
+    var id2;
+    if (id.indexOf('block') != -1) {
+        id2 = id.replace('block', 'none');
+        document.getElementById(id).style.display = 'none';
+        document.getElementById(id2).style.display = 'block';
+    }
+    else {
+        id2 = id.replace('none', 'block');
+        document.getElementById(id).style.display = 'none';
+        document.getElementById(id2).style.display = 'block';
+    }
+}

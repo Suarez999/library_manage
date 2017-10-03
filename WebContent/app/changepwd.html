@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<!-- saved from url=(0044)http://222.192.62.8/reader/change_passwd.php -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <title>图书馆v5.0书目检索系统 </title>
+<link type="text/css" rel="stylesheet" href="./图书馆v5.0书目检索系统password_files/style.css">
+<link type="text/css" rel="stylesheet" href="./图书馆v5.0书目检索系统password_files/mylib.css">
+<link type="text/css" rel="stylesheet" href="./图书馆v5.0书目检索系统password_files/jquery-ui-1.8.13.custom.css">
+<script type="text/javascript" src="./图书馆v5.0书目检索系统password_files/jquery.1.7.1.min.js.下载"></script>
+<script type="text/javascript" src="./图书馆v5.0书目检索系统password_files/jquery-ui-1.8.13.custom.min.js.下载"></script>
+<script type="text/javascript" src="./图书馆v5.0书目检索系统password_files/highlighter.js.下载"></script>
+</head>
+<body>
+<div id="header_opac">
+	<h1 class="header_opac_img">
+    <div class="header_opac_logo">
+    	图书馆书目检索系统<br>
+        <p>Online Public Access Catalogue</p>
+        
+    </div>
+    </h1>
+    <div class="header_right header_right_top">
+      <p class="header_right_font">       </p>
+      <p style="margin-top:60px;" class="header_right_font">
+        <a href="http://222.192.62.8/opac/book_cart.php">暂存书架(<span id="bookcartCount">0</span>)</a> | <font color="blue">马文杰</font> <strong><a href="http://222.192.62.8/reader/logout.php" style="color:#ff0000;">注销</a></strong></p>
+       </div>
+</div>
+<div id="menubar">
+    <ul id="menu_top">
+    		  	<li><a href="http://222.192.62.8/opac/search.php" target="_self">书目检索</a></li>
+	  		  	<li><a href="http://222.192.62.8/top/top_lend.php" target="_self">热门推荐</a></li>
+	  		  	<li><a href="http://222.192.62.8/browse/cls_browsing.php" target="_self">分类浏览</a></li>
+	  		  	<li><a href="http://222.192.62.8/newbook/newbook_cls_browse.php" target="_self">新书通报</a></li>
+	  		  	<li><a href="http://222.192.62.8/peri/peri_nav_e.php" target="_self">期刊导航</a></li>
+	  		  	<li><a href="http://222.192.62.8/asord/asord_hist.php" target="_self">读者荐购</a></li>
+	  		  	<li><a href="http://222.192.62.8/shelf/curriculum.php" target="_self">学科参考</a></li>
+	  		  	<li><a href="http://222.192.62.8/info/info_guide.php" target="_self">信息发布</a></li>
+	  		  	<li><a class="menu_top_on" style="color:#6C5B23;" href="http://222.192.62.8/reader/redr_info.php" target="_self">我的图书馆</a></li>
+	  		  	         <div class="clear"></div>
+    </ul>
+</div>
+<div id="submenu">
+	        <div class="clear"></div>
+</div>
+
+		<script language="JavaScript">
+<!--
+function checkfrm()
+{
+	if (frm_pwd.old_passwd.value==""){
+		alert ("请输入旧密码！");
+		return false;
+	}
+	if (frm_pwd.new_passwd.value==""){
+		alert ("请输入新密码！");
+		return false;
+	}
+	if (frm_pwd.chk_passwd.value==""){
+		alert ("请输入确认密码！");
+		return false;
+	}
+ 
+	if (frm_pwd.chk_passwd.value!=frm_pwd.new_passwd.value){
+		alert ("新密码与确认密码不一致！");
+		return false;
+	}
+	return true;
+}	
+-->		
+</script>
+
+
+<div id="mainbox">
+   <div id="container">
+  <div id="navsidebar">
+     <ul id="nav_mylib">
+     	<li id="nav_mylibhome"><a href="http://222.192.62.8/reader/redr_info.php">证件信息</a></li><li><a href="http://222.192.62.8/reader/book_lst.php">当前借阅</a></li><li><a href="http://222.192.62.8/reader/book_hist.php">借阅历史</a></li><li><a href="http://222.192.62.8/reader/asord_lst.php">荐购历史</a></li><li><a href="http://222.192.62.8/reader/preg.php">预约信息</a></li><li><a href="http://222.192.62.8/reader/relegate.php">委托信息</a></li><li><a href="http://222.192.62.8/reader/book_shelf.php">我的书架</a></li><li><a href="http://222.192.62.8/reader/book_loss.php">书刊遗失</a></li><li><a href="http://222.192.62.8/reader/redr_lost.php">读者挂失</a></li><li><a href="http://222.192.62.8/reader/account.php">帐目清单</a></li><li><a href="http://222.192.62.8/reader/fine_pec.php">违章缴款</a></li><li><a href="http://222.192.62.8/reader/book_rv.php">我的书评</a></li><li><a href="http://222.192.62.8/reader/search_hist.php">检索历史</a></li>
+     </ul>
+  </div>
+ 
+  <div id="mylib_content">
+  		<h2>修改密码</h2>
+  	  	<div style="float:left; width:300px;">
+		<form action="http://222.192.62.8/reader/change_passwd_result.php" method="POST" name="frm_pwd" onsubmit="return checkfrm()">
+				<table width="290" border="0" cellpadding="3" cellspacing="2">
+				  <tbody><tr>
+				    <td align="right">原密码：</td>
+				    <td align="left"><input class="input" name="old_passwd" type="password" size="20" value=""></td>
+				  </tr>
+				  <tr>
+				    <td align="right">新密码：</td>
+				    <td align="left"><input class="input" name="new_passwd" type="password" size="20" value=""></td>
+				  </tr>
+				  <tr>
+				    <td align="right">确认密码：</td>
+				    <td align="left"><input class="input" name="chk_passwd" type="password" size="20" value=""></td>
+				  </tr>
+				  <tr>
+				  	<td></td>
+				    <td height="26" colspan="2"><input type="submit" name="submit1" class="btn btn-success" value="确定"> <input type="button" value="返回" class="btn" onclick="javascript:location.href=&#39;redr_info.php&#39;"></td>
+				    </tr>
+				</tbody></table>
+		</form>				
+	</div>
+	
+    <div id="right_con">
+          <h5>提示</h5>
+          <div id="content_note">
+            <p>在这里您可以修改您的密码（口令），在设置/修改密码时，请注意以下几点：</p>
+            <ul>
+               <li>密码只能是字母和数字。<br></li>
+               <li>密码（口令）不能是空格或为空值。</li>
+               <li>密码（口令）不能输入"#"、"%"、"&amp;"标点符号等字符</li>
+               <li>密码（口令）最好不要使用您的生日、电话号码、房间号等信息。</li>
+            </ul>
+        </div>  
+      </div>
+  </div>    
+  <div class="clear"></div>
+</div>
+<div id="footer"><div id="copy"><p> 图书馆&nbsp;&nbsp; OPAC v5.0.15.12.03  &nbsp;&nbsp;</p><p>© 1999-2014 <a target="_blank" href="http://www.libsys.com.cn/">Jiangsu Huiwen Software Ltd. 江苏汇文软件有限公司</a></p></div></div></div></body></html>

@@ -1,0 +1,140 @@
+﻿
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+	<!-- 包含公共的JSP代码片段 -->
+	
+<title>NIIT图书馆管理平台</title>
+
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="style/js/jquery.js"></script>
+<script type="text/javascript" src="style/js/page_common.js"></script>
+<link href="style/css/common_style_blue.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="style/css/index_1.css" />
+</head>
+<body>
+<!-- 页面标题 -->
+<div id="TitleArea">
+	<div id="TitleArea_Head"></div>
+	<div id="TitleArea_Title">
+		<div id="TitleArea_Title_Content">
+			<img border="0" width="13" height="13" src="style/images/title_arrow.gif"/> teacher user
+		</div>
+    </div>
+	<div id="TitleArea_End"></div>
+</div>
+
+
+	<!-- 过滤条件 -->
+	<div id="QueryArea">
+		<form action="/wirelessplatform/food.html" method="get">
+			<input type="hidden" name="method" value="search">
+			<input type="text" name="keyword" title="请输入学生id">
+			<input type="submit" value="搜索">
+		</form>
+	</div>
+<!-- 主内容区域（数据列表或表单显示） -->
+<div id="MainArea">
+    <table class="MainArea_Content" align="center" cellspacing="0" cellpadding="0">
+        <!-- 表头-->
+        <thead>
+            <tr align="center" valign="middle" id="TableTitle">
+				<td>id</td>
+				<td>name</td>
+				<td>phone</td>
+				<td>address</td>
+				<td>class</td>
+				<td>state</td>
+				<td>fine</td>
+				<td>operation</td>
+			</tr>
+		</thead>	
+		<!--显示数据列表 -->
+        <tbody id="TableData">
+		
+			<tr class="TableDetail1">
+				<td>1</td>
+				<td>xx</td>
+				<td>12345678909</td>
+				<td>nanjing</td>
+				<td>computer</td>
+				<td>available</td>
+				<td>0.0</td>
+				<td>
+					<a href="updateCuisine.html" class="FunctionButton">update</a> 
+					<a href="#" class="FunctionButton">delete</a>
+					<a href="" class="FunctionButton">list books</a>
+				</td>
+			</tr>
+        
+			<tr class="TableDetail1">
+				<td>1</td>
+				<td>xx</td>
+				<td>12345678909</td>
+				<td>nanjing</td>
+				<td>computer</td>
+				<td>available</td>
+				<td>0.0</td>
+				<td>
+					<a href="updateCuisine.html" class="FunctionButton">update</a> 
+					<a href="#" class="FunctionButton">delete</a>
+					<a href="" class="FunctionButton">list books</a>
+				</td>
+			</tr>
+        
+			<tr class="TableDetail1">
+				<td>1</td>
+				<td>xx</td>
+				<td>12345678909</td>
+				<td>nanjing</td>
+				<td>computer</td>
+				<td>available</td>
+				<td>0.0</td>
+				<td>
+					<a href="updateCuisine.html" class="FunctionButton">update</a> 
+					<a href="#" class="FunctionButton">delete</a>
+					<a href="" class="FunctionButton">list books</a>
+				</td>
+			</tr>
+        
+			<tr class="TableDetail1">
+				<td>1</td>
+				<td>xx</td>
+				<td>12345678909</td>
+				<td>nanjing</td>
+				<td>computer</td>
+				<td>available</td>
+				<td>0.0</td>
+				<td>
+					<a href="updateCuisine.html" class="FunctionButton">update</a> 
+					<a href="#" class="FunctionButton">delete</a>
+					<a href="" class="FunctionButton">list books</a>
+				</td>
+			</tr>
+        
+			<tr class="TableDetail1">
+				<td>1</td>
+				<td>xx</td>
+				<td>12345678909</td>
+				<td>nanjing</td>
+				<td>computer</td>
+				<td>available</td>
+				<td>0.0</td>
+				<td>
+					<a href="/wirelessplatform/forward?method=foodSaveOrUpdateUI&id=18" class="FunctionButton">update</a> 
+					<a href="#" class="FunctionButton">delete</a>
+					<a href="" class="FunctionButton">list books</a>
+				</td>
+			</tr>
+        </tbody>
+    </table>
+	
+   <!-- 其他功能超链接 -->
+	<div id="TableTail" align="center">
+		<div class="FunctionButton"><a href="saveFood.html">add</a></div>
+    </div> 
+</div>
+</body>
+</html>
